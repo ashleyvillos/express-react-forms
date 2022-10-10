@@ -147,7 +147,6 @@ const Posts: NextPage = (
   }
 
   const AddEditModal = () => {
-    // console.log(users[selectedIndex])
     return (
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -257,32 +256,6 @@ const Posts: NextPage = (
           ))}
         </List>
       </Box>
-      {/* MODAL FORM  */}
-      {/* <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent as={"form"} onSubmit={handleSubmit(onSubmit)}>
-          <ModalHeader>USER FORM</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <VStack spacing={3}>
-              <Input
-                placeholder="Name"
-                {...register("name", { required: true })}
-              />
-              <Input
-                placeholder="Username"
-                {...register("username", { required: true })}
-              />
-            </VStack>
-          </ModalBody>
-          <ModalFooter gap={2}>
-            <Button bg={"orange"} type="submit">
-              Submit {selectedIndex}
-            </Button>
-            <Button onClick={onClose}>Close</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal> */}
       <AddEditModal />
       <DeleteModal />
     </>
