@@ -71,6 +71,7 @@ const Posts: NextPage = (
         if (data.ok) {
           reset();
           onClose();
+          fetchUsers()
           setSpinnerLoading(false)
         }
       });
@@ -82,7 +83,7 @@ const Posts: NextPage = (
   const onEdit: SubmitHandler<User> = async (data) => {
     setSpinnerLoading(true)
     axios({
-      url: `https://63438d663f83935a78552378.mockapi.io/user/46`,
+      url: `https://63438d663f83935a78552378.mockapi.io/user/${users[selectedIndex].id}`,
       data: data,
       method: 'put'
     }).then((res) => {
@@ -113,6 +114,7 @@ const Posts: NextPage = (
   }
 
   const handleDelete = async (id: number) => {
+    setSpinnerLoading(true)
     axios({
       url: `https://63438d663f83935a78552378.mockapi.io/user/${id}`,
       method: 'delete'
@@ -120,6 +122,7 @@ const Posts: NextPage = (
       if (res.status == 200) {
         fetchUsers()
         onCloseDeleteModal()
+        setSpinnerLoading(false)
       }
     }).catch((err) => {
       console.log(err)
@@ -136,10 +139,11 @@ const Posts: NextPage = (
           <ModalHeader>Are you sure you want to delete { users[selectedIndex] !== undefined ? users[selectedIndex].name : '' }?</ModalHeader>
           <ModalCloseButton />
           <ModalFooter gap={2}>
-            <Button bg={"orange"} type="submit" onClick={() => handleDelete(users[selectedIndex].id)}>
-              Yes
+            <Button bg={"orange"} type="submit" onClick={() => handleDelete(users[selectedIndex].id)} disabled={spinnerLoading}>
+              <Text mr={3}> Yes </Text>
+              <Spinner hidden={!spinnerLoading} />
             </Button>
-            <Button onClick={onCloseDeleteModal}>No</Button>
+            <Button onClick={onCloseDeleteModal}> No </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
